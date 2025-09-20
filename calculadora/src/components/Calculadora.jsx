@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Calculadora.css'
 import { Box, Container } from '@mui/material'
+import { enviarResultado } from '../api/resultado';
 
 export default function Calculadora() {
     const [num,setNum] = useState(0);
@@ -62,6 +63,8 @@ export default function Calculadora() {
                 break;
         } 
         //setNum(0);
+
+        enviarResultado(num);
     }
 
     return (
