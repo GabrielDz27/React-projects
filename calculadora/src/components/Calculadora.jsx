@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './Calculadora.css'
 import { Box, Container } from '@mui/material'
-import { enviarResultado } from '../api/resultado';
+import { enviarResultado, post, get, put, del} from '../api/resultado';
+
 
 export default function Calculadora() {
     const [num,setNum] = useState(0);
@@ -10,7 +11,7 @@ export default function Calculadora() {
 
     function inputNum(e){
         var input = e.target.value;
-        if (num!=0){
+        if (num!==0){
             setNum(num + input);
         } else {
             setNum(input);
@@ -44,27 +45,35 @@ export default function Calculadora() {
         switch(operador){
             case '/':
                 setNum(numOld / num);
-                setNumOld(0);
                 break;
             case '+':
                 setNum(parseFloat(numOld) + parseFloat(num));
-                setNumOld(0);
                 break;
             case '-':
                 setNum(parseFloat(numOld) - parseFloat(num));
-                setNumOld(0);
                 break;
             case '*':
                 setNum(parseFloat(numOld) * parseFloat(num));
-                setNumOld(0);
                 break;
             default:
                 setNum(0);
                 break;
         } 
         //setNum(0);
+        setNumOld(0);
 
-        enviarResultado(num);
+        enviarResultado(num); //jeito meio ruim
+        post('/resultados', { resultado: num }); //jeito top
+        
+        // Buscar histórico
+        const historico =  get('/resultados');
+
+        // Atualizar um resultado
+        put('/resultados/1', { resultado: 42 }); // '/rsultado/ id:1'
+
+        // Deletar um resultado
+        del('/resultados/1'); // '/rsultado/ id:1'
+
     }
 
     return (
