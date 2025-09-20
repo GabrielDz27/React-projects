@@ -41,7 +41,7 @@ export default function Calculadora() {
         setNum(0);
     }
 
-    function calcular() {
+    async function calcular() {
         switch(operador){
             case '/':
                 setNum(numOld / num);
@@ -63,16 +63,16 @@ export default function Calculadora() {
         setNumOld(0);
 
         enviarResultado(num); //jeito meio ruim
-        post('/resultados', { resultado: num }); //jeito top
+        await post('/resultados', { resultado: num }); //jeito top
         
         // Buscar histórico
         const historico =  get('/resultados');
 
         // Atualizar um resultado
-        put('/resultados/1', { resultado: 42 }); // '/rsultado/ id:1'
+        await put('/resultados/1', { resultado: 42 }); // '/rsultado/ id:1'
 
         // Deletar um resultado
-        del('/resultados/1'); // '/rsultado/ id:1'
+        await del('/resultados/1'); // '/rsultado/ id:1'
 
     }
 
