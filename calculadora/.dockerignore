@@ -1,0 +1,17 @@
+# Dependências locais (não precisa dentro do container)
+node_modules
+
+# Build de produção (será gerado dentro do container se precisar)
+dist
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Configurações do editor
+.vscode
+.idea
+
+# Arquivos do Git
+.git
+.gitignore
